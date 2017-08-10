@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ')7k+j@fmmw*gbl855=$zs1isl-fuj@)&y^84uk+(io1)hh#y=k'
+SECRET_KEY = '87fuob!l%jd5qoi(s-6fwp%7ic^0(opk)k27)wa)%uyu+(#*_#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,6 +38,13 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tt_user',
+    'tt_goods',
+    'tt_demo',
+    'tinymce',
+    'haystack',
+    'tt_common',
+    'tt_cart',
+    'tt_order',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -56,8 +63,7 @@ ROOT_URLCONF = 'ttsx.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,11 +85,11 @@ WSGI_APPLICATION = 'ttsx.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ttsx_bj8',
+        'NAME': 'ttsx',
         'HOST': 'localhost',
         'USER': 'root',
         'PASSWORD': 'mysql',
-        'PORT': '3306'
+        'PORT': '3306',
     }
 }
 
@@ -91,9 +97,9 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-Hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -109,3 +115,20 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+STATIC_ROOT = '/var/www/ttsx_bj8/static/'
+# MEDIA_ROOT = STATIC_ROOT
+
+TINYMCE_DEFAULT_CONFIG = {
+    'theme': 'advanced',
+    'width': 600,
+    'height': 400,
+}
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_cn_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    }
+}
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+HAYSTACK_SEARCH_RESULTS_PER_PAGE=12
